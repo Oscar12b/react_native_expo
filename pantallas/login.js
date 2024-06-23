@@ -3,16 +3,16 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, D
 
 const { width, height } = Dimensions.get('window');
 
-const Login = () => {
+const Login = ({ navigation }) => {
     return (
-        <ImageBackground source={require('./assets/fondo.png')} style={styles.backgroundImage}>
+        <ImageBackground source={require('../assets/fondo.png')} style={styles.backgroundImage}>
             <View style={styles.container}>
                 <View style={styles.formContainer}>
                     <Text style={styles.title}>Iniciar sesión</Text>
                     <TextInput style={styles.input} placeholder="Usuario" />
                     <TextInput style={styles.input} placeholder="Contraseña" secureTextEntry={true} />
                     <Text style={styles.forgotPassword}>¿Olvidaste tu contraseña?</Text>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Inicio')}>
                         <Text style={styles.buttonText}>Ingresar</Text>
                     </TouchableOpacity>
                 </View>
