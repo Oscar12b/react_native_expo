@@ -4,7 +4,9 @@ import TabNavigator from './utilidades/TabNavigator';
 
 function App() {
   return (
-    <TabNavigator />
+    <NavigationContainer>
+      <TabNavigator />
+    </NavigationContainer>
   );
 }
 
