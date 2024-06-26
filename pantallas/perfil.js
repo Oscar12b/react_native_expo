@@ -4,12 +4,10 @@ import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
 const Perfil = () => {
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
-                <Image source={{ uri: 'https://example.com/logo.png' }} style={styles.logo} />
-                <Text style={styles.headerText}>Perfil</Text>
-            </View>
             <View>
-                <Image source={{ uri: 'https://example.com/profile_picture.png' }} style={styles.profilePicture} />
+                <View style={styles.header}>
+                    <Image source={require('../assets/rosita.webp')} style={styles.profilePicture} />
+                </View>
                 <View>
                     <View>
                         <Text style={styles.label}>Nombre:</Text>
@@ -49,14 +47,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#F2F2F2',
     },
     header: {
-        height: 80,
-        backgroundColor: '#ADD8E6',
+        marginTop: 20,
         paddingVertical: 20,
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'center',
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
     },
     logo: {
         width: 50,
@@ -70,9 +65,9 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
     },
     profilePicture: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
+        width: 140,
+        height: 140,
+        borderRadius: 80,
         marginBottom: 20,
     },
     infoRow: {
