@@ -5,6 +5,10 @@ import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
+
+// Pantalla de conducta
+// Muestra las faltas e inasistencias del alumno
+// Selecciona un trimestre y muestra las faltas e inasistencias correspondientes
 const Conducta = ({ navigation }) => {
     return (
         <View style={styles.container}>

@@ -1,6 +1,10 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView } from 'react-native';
 
+// Pantalla de perfil
+// Muestra la información del perfil del alumno
+// Nombre, correo, grado y sección
+
 const Perfil = () => {
     return (
         <SafeAreaView style={styles.container}>
