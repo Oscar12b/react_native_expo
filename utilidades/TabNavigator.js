@@ -30,6 +30,7 @@ function TabNavigator() {
         },
         tabBarActiveTintColor: 'blue',
         tabBarInactiveTintColor: 'gray',
+        headerShown: false
       })}
     >
       <Tab.Screen name="Inicio" component={Inicio} />
