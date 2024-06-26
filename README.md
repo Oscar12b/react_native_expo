@@ -8,3 +8,5 @@ Alejandra Saraí Monterroza Sánchez,
 Pablo Ismael Sánchez Hernández,
 Christopher Alessandro Juárez Ponce.
 # Dependencias:
+npm install @react-native-picker/picker
+npm install --save accordion-collapse-react-native
