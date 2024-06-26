@@ -24,13 +24,13 @@ const Perfil = () => {
                     <View style={styles.gradeSectionContainer}>
                         <View style={styles.gradeSection}>
                             <Text style={styles.label}>Grado:</Text>
-                            <View style={styles.infoRow}>
+                            <View style={styles.infoRow2}>
                                 <Text style={styles.info}>8º</Text>
                             </View>
                         </View>
                         <View style={styles.gradeSection}>
                             <Text style={styles.label}>Sección:</Text>
-                            <View style={styles.infoRow}>
+                            <View style={styles.infoRow2}>
                                 <Text style={styles.info}>B</Text>
                             </View>
                         </View>
@@ -78,6 +78,15 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 15,
         justifyContent: 'center',
+    },
+    infoRow2: {
+        marginLeft: '5%',
+        marginBottom: 15,
+        width: '90%',
+        backgroundColor: '#E0E0E0',
+        padding: 20,
+        borderRadius: 15,
+        alignItems: 'center',
     },
     label: {
         fontSize: 16,
