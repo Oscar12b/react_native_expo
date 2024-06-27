@@ -1,167 +1,122 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-const { width } = Dimensions.get('window');
-
-const HomeScreen = ({ navigation }) => {
+const PantallaInicio = () => {
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Image
-                    source={{ uri: 'https://via.placeholder.com/150' }} // Reemplaza con tu imagen
-                    style={styles.logo}
-                />
-                <Text style={styles.headerText}>Inicio</Text>
-            </View>
+        <View style={estilos.contenedor}>
+            <Text style={estilos.textoBienvenida}>Bienvenido, Oscar</Text>
 
-            <Text style={styles.welcomeText}>Bienvenido, Oscar</Text>
-
-            <View style={styles.globalAverageContainer}>
-                <Text style={styles.globalAverageText}>Promedio global</Text>
-                <View style={styles.globalAverage}>
-                    <Image
-                        source={{ uri: 'https://via.placeholder.com/150' }} // Reemplaza con tu imagen
-                        style={styles.trophyImage}
-                    />
-                    <Text style={styles.globalAverageNumber}>9.8</Text>
+            <View style={estilos.contenedorInfo}>
+                <View style={estilos.tarjetaPromedio}>
+                    <Text style={estilos.tituloPromedio}>Promedio global</Text>
+                    <View style={estilos.contenedorPuntaje}>
+                        <Icon name="graduation-cap" style={estilos.iconoGraduacion} />
+                        <Text style={estilos.puntaje}>9.8</Text>
+                    </View>
+                    <Image source={require('../assets/trofeo_card.png')} style={estilos.imagenTrofeo} />
+                </View>
+                <View style={[estilos.tarjeta, estilos.tarjetaUniformes]}>
+                    <Image source={require('../assets/uniforme_card.png')} style={estilos.imagenUniformes} />
+                    <Text style={estilos.tituloUniformes}>UNIFORMES</Text>
                 </View>
             </View>
 
-            <View style={styles.uniformsContainer}>
-                <Image
-                    source={{ uri: 'https://via.placeholder.com/150' }} // Reemplaza con tu imagen
-                    style={styles.uniformsImage}
-                />
-                <Text style={styles.uniformsText}>UNIFORMES</Text>
-            </View>
-
-            <Text style={styles.pendingActivitiesText}>Actividades pendientes</Text>
-
-            <View style={styles.activityContainer}>
-                <Text style={styles.activityTitle}>Maqueta ecosistema (35%)</Text>
-                <Text style={styles.activityDescription}>
-                    Identifica los diferentes componentes del ecosistema y su importancia,
-                    mientras desarrollas habilidades de investigación y trabajo en equipo.
-                </Text>
-            </View>
-
-            <View style={styles.footer}>
-                <View style={styles.footerIcon}>
-                    <Text>Inicio</Text>
-                </View>
-                <View style={styles.footerIcon}>
-                    <Text>Notas</Text>
-                </View>
-                <View style={styles.footerIcon}>
-                    <Text>Conducta</Text>
-                </View>
-                <View style={styles.footerIcon}>
-                    <Text>Perfil</Text>
+            <View style={estilos.contenedorActividades}>
+                <Text style={estilos.tituloActividades}>Actividades pendientes</Text>
+                <View style={estilos.tarjetaActividad}>
+                    <Text style={estilos.tituloActividad}>Maqueta ecosistema (35%)</Text>
+                    <Text style={estilos.descripcionActividad}>
+                        Identifica los diferentes componentes del ecosistema y su importancia, mientras desarrollas habilidades de investigación y trabajo en equipo.
+                    </Text>
                 </View>
             </View>
         </View>
     );
 };
 
-
-const styles = StyleSheet.create({
-    container: {
+const estilos = StyleSheet.create({
+    contenedor: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#fff',
+        padding: wp('5%'),
     },
-    header: {
+    textoBienvenida: {
+        fontSize: wp('6%'),
+        fontWeight: 'bold',
+        marginBottom: hp('2%'),
+    },
+    contenedorInfo: {
         flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: hp('3%'),
+    },
+    tarjetaPromedio: {
+        width: wp('42%'),
         alignItems: 'center',
-        backgroundColor: '#ADD8E6',
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        borderBottomLeftRadius: 20,
-        borderBottomRightRadius: 20,
+        padding: wp('4%'),
     },
-    logo: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-    },
-    headerText: {
-        fontSize: 20,
+    tituloPromedio: {
+        fontSize: wp('4%'),
         fontWeight: 'bold',
-        marginLeft: 10,
+        marginBottom: hp('1%'),
     },
-    welcomeText: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginVertical: 20,
-        marginLeft: 15,
-    },
-    globalAverageContainer: {
-        marginHorizontal: 15,
-        marginBottom: 20,
-    },
-    globalAverageText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    globalAverage: {
+    contenedorPuntaje: {
         flexDirection: 'row',
         alignItems: 'center',
     },
-    trophyImage: {
-        width: 60,
-        height: 60,
-        marginRight: 10,
+    iconoGraduacion: {
+        fontSize: wp('5%'),
+        marginRight: wp('2%'),
     },
-    globalAverageNumber: {
-        fontSize: 30,
+    puntaje: {
+        fontSize: wp('8%'),
         fontWeight: 'bold',
     },
-    uniformsContainer: {
+    imagenTrofeo: {
+        width: wp('40%'),
+        height: hp('25%'),
+        marginTop: hp('1%'),
+    },
+    tarjeta: {
+        width: wp('42%'),
+        height: hp('36.9%'),
         alignItems: 'center',
-        marginBottom: 20,
+        borderRadius: 10,
     },
-    uniformsImage: {
-        width: width * 0.4,
-        height: width * 0.4,
+    tarjetaUniformes: {
+        alignContent: 'center',
+        backgroundColor: '#00CBFF',
     },
-    uniformsText: {
-        fontSize: 18,
+
+    tituloUniformes: {
+        fontSize: wp('4.5%'),
         fontWeight: 'bold',
-        marginTop: 10,
+        color: '#fff',
+        marginTop: hp('0%'),
     },
-    pendingActivitiesText: {
-        fontSize: 16,
+    contenedorActividades: {
+        marginTop: hp('3%'),
+    },
+    tituloActividades: {
+        fontSize: wp('5%'),
         fontWeight: 'bold',
-        marginLeft: 15,
-        marginBottom: 10,
+        marginBottom: hp('2%'),
     },
-    activityContainer: {
+    tarjetaActividad: {
         backgroundColor: '#ADD8E6',
         borderRadius: 10,
-        marginHorizontal: 15,
-        padding: 15,
+        padding: wp('4%'),
     },
-    activityTitle: {
-        fontSize: 16,
+    tituloActividad: {
+        fontSize: wp('4%'),
         fontWeight: 'bold',
-        marginBottom: 5,
+        marginBottom: hp('1%'),
     },
-    activityDescription: {
-        fontSize: 14,
-    },
-    footer: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-        borderTopWidth: 1,
-        borderTopColor: '#DDDDDD',
-        paddingVertical: 10,
-    },
-    footerIcon: {
-        alignItems: 'center',
+    descripcionActividad: {
+        fontSize: wp('3.5%'),
     },
 });
 
-export default HomeScreen;
-
+export default PantallaInicio;

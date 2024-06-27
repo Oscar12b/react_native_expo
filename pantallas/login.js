@@ -3,6 +3,10 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, D
 
 const { width, height } = Dimensions.get('window');
 
+
+// Pantalla de inicio de sesión
+// Contiene un formulario con dos campos de texto para usuario y contraseña
+// y un botón para ingresar
 const Login = ({ navigation }) => {
     return (
         <ImageBackground source={require('../assets/fondo.png')} style={styles.backgroundImage}>
@@ -11,8 +15,7 @@ const Login = ({ navigation }) => {
                     <Text style={styles.title}>Iniciar sesión</Text>
                     <TextInput style={styles.input} placeholder="Usuario" />
                     <TextInput style={styles.input} placeholder="Contraseña" secureTextEntry={true} />
-                    <Text style={styles.forgotPassword}>¿Olvidaste tu contraseña?</Text>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Inicio')}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Main')}>
                         <Text style={styles.buttonText}>Ingresar</Text>
                     </TouchableOpacity>
                 </View>

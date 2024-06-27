@@ -1,4 +1,4 @@
-import { StyleSheet, } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -9,6 +9,10 @@ import Notas from '../pantallas/notas';
 
 const Tab = createBottomTabNavigator();
 
+// FUNCION TAB NAVIGATOR
+// Función que retorna un componente de navegación con pestañas
+// Cada pestaña tiene un icono y un componente asociado
+// Se configura el color de los iconos activos e inactivos
 function TabNavigator() {
   return (
     <Tab.Navigator
