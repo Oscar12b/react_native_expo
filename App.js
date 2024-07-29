@@ -2,7 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Login from './pantallas/login';
-import TabNavigator from './utilidades/TabNavigator';
+import TabNavigator from './navegacion/tab_navigator';
 
 const Stack = createStackNavigator();
 
