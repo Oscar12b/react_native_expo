@@ -6,6 +6,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const PantallaInicio = () => {
     return (
         <View style={estilos.contenedor}>
+            <View style={estilos.header}>
+                <Image
+                    source={{ uri: 'https://via.placeholder.com/150' }} // Reemplaza con tu imagen
+                    style={estilos.logo}
+                />
+                <Text style={estilos.headerText}>Inicio</Text>
+            </View>
             <Text style={estilos.textoBienvenida}>Bienvenido, Oscar</Text>
 
             <View style={estilos.contenedorInfo}>
@@ -40,7 +47,6 @@ const estilos = StyleSheet.create({
     contenedor: {
         flex: 1,
         backgroundColor: '#fff',
-        padding: wp('5%'),
     },
     textoBienvenida: {
         fontSize: wp('6%'),
@@ -116,6 +122,20 @@ const estilos = StyleSheet.create({
     },
     descripcionActividad: {
         fontSize: wp('3.5%'),
+    },    
+    logo: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#ADD8E6',
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        borderBottomLeftRadius: 20,
+        borderBottomRightRadius: 20,
     },
 });
 
