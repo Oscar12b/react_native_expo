@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import fetchData from '../utilidades/componentes';
+import { fetchData } from '../utilidades/componentes';
 
-const SelectDropdown = ({ filename, action, form = null, busqueda = false }) => {
-
+const SelectDropdown = ({ filename, action, form = null, busqueda = true, onValueChange }) => {
     const [data, setData] = useState([]);
     const [selectedValue, setSelectedValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
@@ -38,7 +37,7 @@ const SelectDropdown = ({ filename, action, form = null, busqueda = false }) => 
         };
 
         CargarDatos();
-    }, [filename, action, form]); // Asegúrate de que useEffect solo se ejecute cuando cambien estos parámetros
+    }, [filename, action, form]);
 
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" />;
@@ -65,6 +64,10 @@ const SelectDropdown = ({ filename, action, form = null, busqueda = false }) => 
                 onChange={item => {
                     setSelectedValue(item.value);
                     setIsFocus(false);
+                    console.log("Selected value:", item.value); // Muestra el valor seleccionado en la consola
+                    if (onValueChange) {
+                        onValueChange(item.value); // Llama a la función callback si está definida
+                    }
                 }}
             />
         </View>
