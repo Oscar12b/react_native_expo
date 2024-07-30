@@ -3,6 +3,7 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 import Accordion from '../componentes/accordion';
 
+
 // Pantalla de conducta
 // Muestra las faltas e inasistencias del alumno
 // Selecciona un trimestre y muestra las faltas e inasistencias correspondientes
@@ -34,12 +35,6 @@ const Conducta = ({ navigation }) => {
                     {/* Para contraste verde: acordeón - #B2FFB0, ícono #69ED66, 
                     para contraste naranja: acordeón - #FED789, ícono - #F39C12 
                     para contraste rojo: acordeón - #ff6f61, ícono - #d32f2f */}
-
-                    <Accordion
-                        apartado={"Notas"}
-                        colorHeader={"#B2FFB0"}
-                        data={{ nombreMateria: "Matemáticas", nota: "9.6", colorNota: '#88ceeb', mensaje: "Ninguna asignación agregada" }}
-                    />
 
                     <Accordion
                         apartado={"Conducta"}
