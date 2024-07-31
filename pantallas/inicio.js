@@ -1,9 +1,11 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 const PantallaInicio = () => {
+    const navigation = useNavigation();
     return (
         <View style={estilos.contenedor}>
             <View style={estilos.header}>
@@ -24,9 +26,14 @@ const PantallaInicio = () => {
                     </View>
                     <Image source={require('../assets/trofeo_card.png')} style={estilos.imagenTrofeo} />
                 </View>
-                <View style={[estilos.tarjeta, estilos.tarjetaUniformes]}>
-                    <Image source={require('../assets/uniforme_card.png')} style={estilos.imagenUniformes} />
-                    <Text style={estilos.tituloUniformes}>UNIFORMES</Text>
+                <View style={[estilos.contenedor]}>
+                    <TouchableOpacity
+                        style={[estilos.tarjeta, estilos.tarjetaUniformes]}
+                        onPress={() => navigation.navigate('Catalogo')}
+                    >
+                        <Image source={require('../assets/uniforme_card.png')} style={estilos.imagenUniformes} />
+                        <Text style={estilos.tituloUniformes}>UNIFORMES</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
 
@@ -122,7 +129,7 @@ const estilos = StyleSheet.create({
     },
     descripcionActividad: {
         fontSize: wp('3.5%'),
-    },    
+    },
     logo: {
         width: 50,
         height: 50,
