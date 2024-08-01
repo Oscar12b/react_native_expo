@@ -1,6 +1,11 @@
 import * as React from 'react';
+
+//MAIN imports raíz del proyecto
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { AlertNotificationRoot } from 'react-native-alert-notification';
+
+
 import Login from './pantallas/login';
 import TabNavigator from './navegacion/tab_navigator';
 import PantallaInicio from './pantallas/inicio';
@@ -12,15 +17,17 @@ const Stack = createStackNavigator();
 // Función que retorna un componente de navegación verifica
 function App() {
   return (
-    <NavigationContainer>
+    <AlertNotificationRoot>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="Main" component={TabNavigator} />
+          <Stack.Screen name="Inicio" component={PantallaInicio} />
+          <Stack.Screen name="Catalogo" component={Catalogo} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AlertNotificationRoot>
 
-      <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Main" component={TabNavigator} />
-        <Stack.Screen name="Inicio" component={PantallaInicio} />
-        <Stack.Screen name="Catalogo" component={Catalogo} />
-      </Stack.Navigator>
-    </NavigationContainer>
   );
 };
 

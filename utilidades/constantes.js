@@ -1,5 +1,5 @@
 // COSTANTE DEL ENDPOINT DEL SERVIDOR
-export const SERVER_URL = 'http://192.168.137.70/api/';
+export const SERVER_URL = 'http://192.168.1.20/API_expo_rossaAgazzis/';
 
 /**
  * NOTA: LAS CONSTANTES SE DEFINEN DE LA SIGUIENTE MANERA
@@ -9,7 +9,8 @@ export const SERVER_URL = 'http://192.168.137.70/api/';
 // ENDPOINTS DE LOS SERVICIOS 
 
 export const TRIMESTRES_API = '';
-export const ESTUDIANTES_API = '';
+export const ESTUDIANTES_API = 'services/public/estudiantes.php';
 export const NOTAS_API = '';
+
 
 
