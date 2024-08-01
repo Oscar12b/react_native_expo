@@ -1,13 +1,10 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import CartaActividad from '../componentes/carta_actividad';
-import { FlatList } from 'react-native-gesture-handler';
 
 const Accordion = ({ titulo, icono, backgroundIcono, apartado, data, colorHeader }) => {
-
-    console.log(data["mensaje"]);
 
     return (
         <>
@@ -36,7 +33,6 @@ const Accordion = ({ titulo, icono, backgroundIcono, apartado, data, colorHeader
                         </CollapseHeader>
                         <CollapseBody style={styles.collapseBody}>
                             <View style={styles.collapseBodyContainer}>
-                                <Text style={styles.semiBoldText}>{data.mensaje}</Text>
                             </View>
                         </CollapseBody>
                     </Collapse>
@@ -44,7 +40,7 @@ const Accordion = ({ titulo, icono, backgroundIcono, apartado, data, colorHeader
                 : apartado == "Notas" ?
                 <View>
                 <Collapse touchableOpacityProps={{ activeOpacity: 1 }}>
-                    <CollapseHeader style={[{ backgroundColor: colorHeader ? colorHeader : "#fff" }, styles.collapseHeader]}>
+                    <CollapseHeader style={[{ backgroundColor: colorHeader != undefined ? colorHeader : "#fff" }, styles.collapseHeader]}>
                         <View style={styles.headerCollapseContainer}>
                             <View style={styles.secondaryContainer}>
                                 <Text style={styles.h5Text}>{data.nombreMateria}</Text>
@@ -57,7 +53,7 @@ const Accordion = ({ titulo, icono, backgroundIcono, apartado, data, colorHeader
                     </CollapseHeader>
                     <CollapseBody style={styles.collapseBody}>
                         <FlatList
-                            data={data.mensaje}
+                            data={data.dataset}
                             renderItem={({ item }) => (
                                 <CartaActividad
                                     titulo={item.titulo}
@@ -100,7 +96,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 20,
         display: 'flex',
-        justifyContent: 'flex-start',
         alignItems: 'center',
     },
     iconContainer: {
@@ -122,6 +117,7 @@ const styles = StyleSheet.create({
     collapseBody: {
         backgroundColor: "#fff",
         elevation: 10,
+        minHeight: 150,
         borderRadius: 20,
         marginTop: -40,
         zIndex: -1
@@ -131,6 +127,8 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         alignSelf: "center",
+        marginTop: 50,
+        flexDirection: 'column',
         paddingHorizontal: 15,
     },
     semiBoldText: {
