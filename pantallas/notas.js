@@ -5,14 +5,14 @@ import SelectDropdown from '../componentes/select';
 
 
 const Notas = () => {
-  
+
     const [valorSelect, setValorSelect] = useState(null);
 
     const handleValorSelect = (value) => {
         setValorSelect(value);
         console.log("valor cambiado", value);
     };
-  
+
     const cartasData = [
         { titulo: "Maqueta ecosistema (35%)", descripcion: "Identifica los diferentes componentes del ecosistema y su importancia.", nota: "9.6" },
         { titulo: "Proyecto matemáticas (40%)", descripcion: "Realiza un proyecto sobre la teoría de números.", nota: "9.8" },
@@ -21,26 +21,15 @@ const Notas = () => {
 
     return (
         <View style={styles.container}>
-     
 
             <View style={styles.mainContainer}>
-                <View
-                    style={{
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        alignSelf: 'stretch',
-                        borderWidth: 1,
-                        borderRadius: 10,
-                        marginTop: 20
-                    }}>
-                     <SelectDropdown
-                          //es casi lo mismo que un fetch data pero con un select
-                          filename="services/public/trimestres.php" //nombre del archivo de la api de php pero con importe ej
-                          action="readALL" //accion de la api de php
-                          form={{ key: 'value' }} // Pasa el objeto de formulario si es necesario
-                          onValueChange={handleValorSelect} // Pasar la función callback
-                      />
-                </View>
+                <SelectDropdown
+                    //es casi lo mismo que un fetch data pero con un select
+                    filename="services/public/trimestres.php" //nombre del archivo de la api de php pero con importe ej
+                    action="readALL" //accion de la api de php
+                    form={{ key: 'value' }} // Pasa el objeto de formulario si es necesario
+                    onValueChange={handleValorSelect} // Pasar la función callback
+                />
                 <ScrollView contentContainerStyle={{ rowGap: 15, padding: 13 }}>
                     <Accordion
                         apartado={"Notas"}
