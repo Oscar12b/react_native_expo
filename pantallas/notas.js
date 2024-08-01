@@ -45,12 +45,12 @@ const Notas = () => {
                     <Accordion
                         apartado={"Notas"}
                         colorHeader={"#B2FFB0"}
-                        data={{ nombreMateria: "Matemáticas", nota: "9.6", colorNota: '#88ceeb', mensaje: cartasData }}
+                        data={{ nombreMateria: "Matemáticas", nota: "9.6", colorNota: '#88ceeb', dataset: cartasData }}
                     />
                     <Accordion
                         apartado={"Notas"}
                         colorHeader={"#D1EDF5"}
-                        data={{ nombreMateria: "Lenguaje", nota: "9.8", colorNota: '#88ceeb', mensaje: cartasData }}
+                        data={{ nombreMateria: "Lenguaje", nota: "9.8", colorNota: '#88ceeb', dataset: cartasData }}
                     />
                 </ScrollView>
             </View>
