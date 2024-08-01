@@ -1,34 +1,94 @@
 import { SERVER_URL } from "./constantes";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// FUNCION PARA ALMACENAR EL IDENTIFICADOR DE LA SESION
+export const almacenarIdentificadorSesion = async (SESSION_ID) => {
+    try {
+        await AsyncStorage.setItem('PHPSESSID', SESSION_ID);
+    } catch (e) {
+        // Guardar error
+        console.error('Error al almacenar el identificador de sesión:', e);
+    }
+};
 
-//********************************************************************************************************************-
-//funcion para hacer fetch a la api
+// FUNCION PARA OBTENER EL IDENTIFICADOR DE LA SESION
+export const obtenerIdentificadorSesion = async () => {
+    try {
+        const SESSION_ID = await AsyncStorage.getItem('PHPSESSID');
+        return SESSION_ID;
+    } catch (e) {
+        // Error al recuperar el ID
+        console.error('Error al obtener el identificador de sesión:', e);
+        return null;
+    }
+};
+
+export const logout = async () => {
+    try {
+        const response = await fetchData(CLIENTES_API, 'logOut');
+
+        if (response.status === 1) {
+            await AsyncStorage.removeItem('PHPSESSID');
+            return response;
+        } else {
+            throw new Error(response.error || 'Error al cerrar sesión');
+        }
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+    }
+};
+
+// Function to fetch data from the API
 export const fetchData = async (filename, action, form = null, dataprovisional = null) => {
-
     if (dataprovisional !== null) {
         return dataprovisional;
     } else {
-        // Se define una constante tipo objeto para establecer las opciones de la petición.
-        const OPTIONS = {};
-        // Se determina el tipo de petición a realizar.
+        const PHPSESSID = await obtenerIdentificadorSesion();
+
+        // Set the request options
+        const OPTIONS = {
+            method: form ? 'post' : 'get',
+            headers: {
+                ...(PHPSESSID && { 'Cookie': `PHPSESSID=${PHPSESSID}` })
+            },
+            ...(form && { body: form }),
+        };
+
         if (form) {
-            OPTIONS.method = 'post';
             OPTIONS.body = form;
-        } else {
-            OPTIONS.method = 'get';
         }
+
         try {
-            // Se declara una constante tipo objeto con la ruta específica del servidor.
-            const PATH = new URL(SERVER_URL + filename);
-            // Se agrega un parámetro a la ruta con el valor de la acción solicitada.
-            PATH.searchParams.append('action', action);
-            // Se define una constante tipo objeto con la respuesta de la petición.
-            const RESPONSE = await fetch(PATH.href, OPTIONS);
-            // Se retorna el resultado en formato JSON.
+            // Construct the server URL
+            const PATH = `${SERVER_URL}${filename}`;
+            // Add the action parameter to the URL
+            const URL_WITH_ACTION = `${PATH}?action=${action}`;
+
+            console.warn(URL_WITH_ACTION);
+            // Obtener el identificador de sesión y agregarlo a los encabezados
+            console.warn(OPTIONS.body);
+
+            // Send the request and get the RESPONSE
+            const RESPONSE = await fetch(URL_WITH_ACTION, OPTIONS);
+
+            const COOKIES = RESPONSE.headers.get('set-cookie');
+
+            // Extraer el PHPSESSID de las COOKIES
+            const PHPSESSID = COOKIES
+                ? COOKIES.split(';').find(cookie => cookie.trim().startsWith('PHPSESSID')).split('=')[1]
+                : null;
+
+            // Almacenar el PHPSESSID en el almacenamiento local
+            if (PHPSESSID) {
+                await almacenarIdentificadorSesion(PHPSESSID)
+
+            }
+
+            // Return the RESPONSE in JSON format
             return await RESPONSE.json();
         } catch (error) {
-            // Se muestra un mensaje en la consola del navegador web cuando ocurre un problema.
-            console.log(error);
+            // Log the error to the console
+            console.error(error);
         }
     }
 }

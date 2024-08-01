@@ -4,31 +4,40 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { fetchData } from '../utilidades/componentes';
 
 const SelectDropdown = ({ filename, action, form = null, busqueda = true, onValueChange }) => {
+
     const [data, setData] = useState([]);
     const [selectedValue, setSelectedValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
     const [loading, setLoading] = useState(true);
 
     const lista = [
-        { label: 'Item 1', value: '1' },
-        { label: 'Item 2', value: '2' },
-        { label: 'Item 3', value: '3' },
-        { label: 'Item 4', value: '4' },
-        { label: 'Item 5', value: '5' },
+        { label: 'Trimestre 1', value: '1' },
+        { label: 'Trimestre 2', value: '2' },
+        { label: 'Trimestre 3', value: '3' },
+        { label: 'Trimestre 4', value: '4' },
+        { label: 'Trimestre 5', value: '5' },
     ];
 
     useEffect(() => {
+
         const CargarDatos = async () => {
             try {
                 const RESPONSE_API = await fetchData(filename, action, form);
-                const LISTA = await RESPONSE_API.json();
-                const DATA_SET = LISTA.dataset;
-                const DATA_FORMATEADA = DATA_SET.map(item => ({
-                    label: item[0], // Ajusta esto según la estructura de tu respuesta API
-                    value: item[1], // Ajusta esto según la estructura de tu respuesta API
-                }));
-                setData(DATA_FORMATEADA);
-                setLoading(false);
+                if (RESPONSE_API !== null) {
+                    const LISTA = await RESPONSE_API.json();
+                    const DATA_SET = LISTA.dataset;
+                    const DATA_FORMATEADA = DATA_SET.map(item => ({
+                        label: item[0], // Ajusta esto según la estructura de tu respuesta API
+                        value: item[1], // Ajusta esto según la estructura de tu respuesta API
+                    }));
+
+                    setData(DATA_FORMATEADA);
+                    setLoading(false);
+
+                } else {
+                    setData(lista);
+                    setLoading(false);
+                }
             } catch (error) {
                 setData(lista);
                 console.error(error);
@@ -56,8 +65,8 @@ const SelectDropdown = ({ filename, action, form = null, busqueda = true, onValu
                 maxHeight={300}
                 labelField="label"
                 valueField="value"
-                placeholder={!isFocus ? 'Select an option' : '...'}
-                searchPlaceholder="Search..."
+                placeholder={!isFocus ? 'Elija una opción' : '...'}
+                searchPlaceholder="Buscar..."
                 value={selectedValue}
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
