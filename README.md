@@ -18,3 +18,4 @@ Christopher Alessandro Juárez Ponce.
 "react-native-screens": "^3.31.1",
 "react-native-vector-icons": "^10.1.0"
 "react-native-element-dropdown":"^2.12.1"
+"@react-native-async-storage/async-storage": "^1.24.0"
