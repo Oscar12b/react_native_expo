@@ -3,10 +3,10 @@ import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { fetchData } from '../utilidades/componentes';
 
-const SelectDropdown = ({ filename, action, form = null, busqueda = true, onValueChange }) => {
+const SelectDropdown = ({ filename, action, form = null, busqueda = true, onValueChange, setValor, valor }) => {
 
     const [data, setData] = useState([]);
-    const [selectedValue, setSelectedValue] = useState(null);
+    // const [selectedValue, setSelectedValue] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -24,13 +24,26 @@ const SelectDropdown = ({ filename, action, form = null, busqueda = true, onValu
             try {
                 const RESPONSE_API = await fetchData(filename, action, form);
                 if (RESPONSE_API !== null) {
-                    const LISTA = await RESPONSE_API.json();
-                    const DATA_SET = LISTA.dataset;
+                    // const LISTA = await RESPONSE_API.dataset.json();
+                    const DATA_SET = RESPONSE_API.dataset;
                     const DATA_FORMATEADA = DATA_SET.map(item => ({
-                        label: item[0], // Ajusta esto según la estructura de tu respuesta API
-                        value: item[1], // Ajusta esto según la estructura de tu respuesta API
+                        label: item['nombre_trimestre'], // Ajusta esto según la estructura de tu respuesta API
+                        value: item['id_trimestre'], // Ajusta esto según la estructura de tu respuesta API
                     }));
-
+                    // Se almacena la fecha actual en la variable.
+                    fecha_actual = new Date();
+                    // Se itera el conjunto de datos.
+                    DATA_SET.forEach(row => {
+                        // Se almacena la fecha de inicio del trimestre en la variable.
+                        fecha_inicio = new Date(row.fecha_inicio);
+                        // Se almacena la fecha de finalización en la variable.
+                        fecha_fin = new Date(row.fecha_fin);
+                        // Si la fecha actual se encuentra en el rango del trimestre se asigna el valor del dropdown.
+                        if(fecha_inicio.getTime()<=fecha_actual.getTime() && fecha_actual.getTime()<=fecha_fin.getTime()){
+                            // Se asigna el valor del dropdown.
+                            setValor(row.id_trimestre);
+                        }
+                    });
                     setData(DATA_FORMATEADA);
                     setLoading(false);
 
@@ -67,11 +80,11 @@ const SelectDropdown = ({ filename, action, form = null, busqueda = true, onValu
                 valueField="value"
                 placeholder={!isFocus ? 'Elija una opción' : '...'}
                 searchPlaceholder="Buscar..."
-                value={selectedValue}
+                value={valor}
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
                 onChange={item => {
-                    setSelectedValue(item.value);
+                    setValor(item.value);
                     setIsFocus(false);
                     console.log("Selected value:", item.value); // Muestra el valor seleccionado en la consola
                     if (onValueChange) {

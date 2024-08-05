@@ -3,6 +3,7 @@ import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import CartaActividad from '../componentes/carta_actividad';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Accordion = ({ titulo, icono, backgroundIcono, tipo, data, colorHeader }) => {
 
@@ -11,10 +12,10 @@ const Accordion = ({ titulo, icono, backgroundIcono, tipo, data, colorHeader }) 
             {tipo == "Falta" || tipo == "Inasistencia" ?
                 <View>
                     <Collapse touchableOpacityProps={{ activeOpacity: 1 }}>
-                        <CollapseHeader style={[{ backgroundColor: colorHeader != undefined ? colorHeader : "#fff" }, styles.collapseHeader]}>
+                        <CollapseHeader style={[{ backgroundColor: colorHeader != undefined ? colorHeader[0] : "#fff" }, styles.collapseHeader]}>
                             <View style={styles.headerCollapseContainer}>
                                 <View style={styles.secondaryContainer}>
-                                    <View style={[styles.iconContainer, { backgroundColor: backgroundIcono }]}>
+                                    <View style={[{ backgroundColor: colorHeader != undefined ? colorHeader[1] : "#fff" }, styles.iconContainer]}>
                                         {icono == "martillo" ?
                                             <Image
                                                 style={styles.headerContentImage}
@@ -34,16 +35,33 @@ const Accordion = ({ titulo, icono, backgroundIcono, tipo, data, colorHeader }) 
                         <CollapseBody style={styles.collapseBody}>
                             <View style={styles.collapseBodyContainer}>
                                 {
-                                    data.dataset != undefined ?
+                                    data.dataset[0].length != 0 ?
                                         <FlatList
-                                            data={data.dataset}
+                                            data={data.dataset[1]}
                                             renderItem={({ item }) => (
-                                                <CartaActividad
-                                                    data={item}
-                                                    tipoCard={tipo}
-                                                />
+                                                <View style={{ marginTop: 20, gap: 2 }}>
+                                                    <View style={{ height: 50, justifyContent: 'center', flexDirection: 'row', justifyContent: 'start', alignItems: 'center', gap: 5, marginLeft: 10 }}>
+                                                        <Image source={require('../assets/punto_rojo.png')} style={{ width: 15, height: 15 }}/>
+                                                        <Text style={{ fontWeight: 'bold', fontSize: 17 }}>Faltas {item.tipo_falta.toLowerCase()}</Text>
+                                                    </View>
+                                                    <View
+                                                        style={{
+                                                            borderBottomColor: 'black',
+                                                            borderBottomWidth: 1,
+                                                        }}
+                                                    />
+                                                    <FlatList
+                                                            data={data.dataset[0].filter((row)=>{if(row.tipo_falta==item.tipo_falta){return row}})}
+                                                            renderItem={({ item }) => (
+                                                                <CartaActividad
+                                                                    data={item}
+                                                                    tipoCard={tipo}
+                                                                />
+                                                            )}
+                                                            contentContainerStyle={styles.collapseBodyContainer}
+                                                        />
+                                                </View>
                                             )}
-                                            contentContainerStyle={styles.collapseBodyContainer}
                                         />
                                         : <Text style={styles.h5Text}>{data.mensaje}</Text>
                                 }
@@ -127,7 +145,6 @@ const styles = StyleSheet.create({
     h5Text: {
         fontSize: 17,
         fontWeight: '700',
-        marginLeft: 10,
         alignSelf: 'center'
     },
     collapseBody: {
