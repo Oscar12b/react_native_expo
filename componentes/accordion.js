@@ -1,17 +1,14 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, FlatList } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import CartaActividad from '../componentes/carta_actividad';
-import { FlatList } from 'react-native-gesture-handler';
 
-const Accordion = ({ titulo, icono, backgroundIcono, apartado, data, colorHeader }) => {
-
-    console.log(data["mensaje"]);
+const Accordion = ({ titulo, icono, backgroundIcono, tipo, data, colorHeader }) => {
 
     return (
         <>
-            {apartado == "Conducta" ?
+            {tipo == "Falta" || tipo == "Inasistencia" ?
                 <View>
                     <Collapse touchableOpacityProps={{ activeOpacity: 1 }}>
                         <CollapseHeader style={[{ backgroundColor: colorHeader != undefined ? colorHeader : "#fff" }, styles.collapseHeader]}>
@@ -36,41 +33,55 @@ const Accordion = ({ titulo, icono, backgroundIcono, apartado, data, colorHeader
                         </CollapseHeader>
                         <CollapseBody style={styles.collapseBody}>
                             <View style={styles.collapseBodyContainer}>
-                                <Text style={styles.semiBoldText}>{data.mensaje}</Text>
+                                {
+                                    data.dataset != undefined ?
+                                        <FlatList
+                                            data={data.dataset}
+                                            renderItem={({ item }) => (
+                                                <CartaActividad
+                                                    data={item}
+                                                    tipoCard={tipo}
+                                                />
+                                            )}
+                                            contentContainerStyle={styles.collapseBodyContainer}
+                                        />
+                                        : <Text style={styles.h5Text}>{data.mensaje}</Text>
+                                }
                             </View>
                         </CollapseBody>
                     </Collapse>
                 </View>
-                : apartado == "Notas" ?
-                <View>
-                <Collapse touchableOpacityProps={{ activeOpacity: 1 }}>
-                    <CollapseHeader style={[{ backgroundColor: colorHeader ? colorHeader : "#fff" }, styles.collapseHeader]}>
-                        <View style={styles.headerCollapseContainer}>
-                            <View style={styles.secondaryContainer}>
-                                <Text style={styles.h5Text}>{data.nombreMateria}</Text>
-                                <View style={styles.simpleFlex}>
-                                    <Text style={[styles.textoNota, { backgroundColor: data.colorNota }]}>{data.nota}</Text>
+                : tipo == "Nota" ?
+                    <View>
+                        <Collapse touchableOpacityProps={{ activeOpacity: 1 }}>
+                            <CollapseHeader style={[{ backgroundColor: colorHeader != undefined ? colorHeader : "#fff" }, styles.collapseHeader]}>
+                                <View style={styles.headerCollapseContainer}>
+                                    <View style={styles.secondaryContainer}>
+                                        <Text style={styles.h5Text}>{data.nombreMateria}</Text>
+                                        <View style={styles.simpleFlex}>
+                                            <Text style={[styles.textoNota, { backgroundColor: data.colorNota }]}>{data.nota}</Text>
+                                        </View>
+                                    </View>
+                                    <MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
                                 </View>
-                            </View>
-                            <MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
-                        </View>
-                    </CollapseHeader>
-                    <CollapseBody style={styles.collapseBody}>
-                        <FlatList
-                            data={data.mensaje}
-                            renderItem={({ item }) => (
-                                <CartaActividad
-                                    titulo={item.titulo}
-                                    descripcion={item.descripcion}
-                                    nota={item.nota}
-                                />
-                            )}
-                            keyExtractor={(item, index) => index.toString()}
-                            contentContainerStyle={styles.collapseBodyContainer}
-                        />
-                    </CollapseBody>
-                </Collapse>
-            </View>
+                            </CollapseHeader>
+                            <CollapseBody style={styles.collapseBody}>
+                                <View style={styles.collapseBodyContainer}>
+                                    <FlatList
+                                        showsVerticalScrollIndicator={false}
+                                        data={data.dataset}
+                                        renderItem={({ item }) => (
+                                            <CartaActividad
+                                                data={item}
+                                                tipoCard={tipo}
+                                            />
+                                        )}
+                                        contentContainerStyle={styles.collapseBodyContainer}
+                                    />
+                                </View>
+                            </CollapseBody>
+                        </Collapse>
+                    </View>
                     : <></>
             }
         </>
@@ -100,7 +111,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: 20,
         display: 'flex',
-        justifyContent: 'flex-start',
         alignItems: 'center',
     },
     iconContainer: {
@@ -117,25 +127,24 @@ const styles = StyleSheet.create({
     h5Text: {
         fontSize: 17,
         fontWeight: '700',
-        marginLeft: 10
+        marginLeft: 10,
+        alignSelf: 'center'
     },
     collapseBody: {
         backgroundColor: "#fff",
         elevation: 10,
+        minHeight: 150,
         borderRadius: 20,
         marginTop: -40,
         zIndex: -1
     },
     collapseBodyContainer: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        alignSelf: "center",
-        paddingHorizontal: 15,
-    },
-    semiBoldText: {
-        fontWeight: "700",
-        fontSize: 20
+        marginTop: 25,
+        paddingHorizontal: 5,
+        paddingVertical: 5,
+        gap: 5,
+        flex: 1,
+        justifyContent: 'center'
     },
     textoNota: {
         marginRight: 20,

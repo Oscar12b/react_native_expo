@@ -1,34 +1,57 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const CartaActividad = ({ titulo, descripcion, nota }) => {
+const CartaActividad = ({ tipoCard, data }) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.assignmentContainer}>
-        <Text style={styles.assignmentTitle}>{titulo}</Text>
-        <Text style={styles.assignmentDescription}>
-          {descripcion}
-        </Text>
-        <View style={styles.assignmentGradeContainer}>
-          <Text style={styles.assignmentGrade}>{nota}</Text>
+    <>
+      {tipoCard == "Nota" ?
+        <View style={styles.container}>
+          <View style={styles.assignmentContainer}>
+            <Text style={styles.assignmentTitle}>{data['titulo']}</Text>
+            <Text style={styles.assignmentDescription}>
+              {data['descripcion']}
+            </Text>
+            <View style={styles.assignmentGradeContainer}>
+              <Text style={styles.assignmentGrade}>{data['nota']}</Text>
+            </View>
+          </View>
         </View>
-      </TouchableOpacity>
-    </View>
+        : tipoCard == "Falta" ?
+          <View style={styles.container}>
+            <View style={styles.assignmentContainer}>
+              <Text style={styles.assignmentTitle}>{titulo}</Text>
+              <Text style={styles.assignmentDescription}>
+                {descripcion}
+              </Text>
+              <View style={styles.assignmentGradeContainer}>
+                <Text style={styles.assignmentGrade}>{nota}</Text>
+              </View>
+            </View>
+          </View>
+          : tipoCard == "Inasistencia" ?
+          <View style={styles.container}>
+            <View style={styles.assignmentContainer}>
+              <Text style={styles.assignmentTitle}>{titulo}</Text>
+              <Text style={styles.assignmentDescription}>
+                {descripcion}
+              </Text>
+              <View style={styles.assignmentGradeContainer}>
+                <Text style={styles.assignmentGrade}>{nota}</Text>
+              </View>
+            </View>
+          </View>
+          : <></>
+      }
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
     borderWidth: 1,
     borderColor: '#DDD',
     borderRadius: 10,
     overflow: 'hidden',
-    alignSelf: 'stretch', // This makes the container adjust its width according to the parent
-  },
-  grade: {
-    fontSize: 18,
-    color: '#155724',
   },
   assignmentContainer: {
     backgroundColor: '#98C0F6',
@@ -57,7 +80,7 @@ const styles = StyleSheet.create({
   assignmentGrade: {
     fontSize: 18,
     color: '#155724',
-},
+  },
 });
 
 export default CartaActividad;

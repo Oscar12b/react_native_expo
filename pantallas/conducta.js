@@ -37,7 +37,7 @@ const Conducta = ({ navigation }) => {
                     para contraste rojo: acordeón - #ff6f61, ícono - #d32f2f */}
 
                     <Accordion
-                        apartado={"Conducta"}
+                        tipo={"Falta"}
                         colorHeader={"#B2FFB0"}
                         icono={"check"}
                         backgroundIcono={"#69ED66"}
@@ -46,7 +46,7 @@ const Conducta = ({ navigation }) => {
                     />
 
                     <Accordion
-                        apartado={"Conducta"}
+                        tipo={"Inasistencia"}
                         colorHeader={"#FED789"}
                         icono={"advertencia"}
                         backgroundIcono={"#F39C12"}
@@ -55,7 +55,7 @@ const Conducta = ({ navigation }) => {
                     />
 
                     <Accordion
-                        apartado={"Conducta"}
+                        tipo={"Falta"}
                         colorHeader={"#ff6f61"}
                         icono={"martillo"}
                         backgroundIcono={"#d32f2f"}
