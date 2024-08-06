@@ -5,7 +5,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import CartaActividad from '../componentes/carta_actividad';
 import { ScrollView } from 'react-native-gesture-handler';
 
-const Accordion = ({ titulo, icono, backgroundIcono, tipo, data, colorHeader }) => {
+const Accordion = ({ titulo, icono, tipo, data, colorHeader }) => {
 
     return (
         <>
@@ -35,13 +35,14 @@ const Accordion = ({ titulo, icono, backgroundIcono, tipo, data, colorHeader }) 
                         <CollapseBody style={styles.collapseBody}>
                             <View style={styles.collapseBodyContainer}>
                                 {
-                                    data.dataset[0].length != 0 ?
+                                    tipo == "Falta" && data.dataset[0].length != undefined && data.dataset[0].length != 0 ?
                                         <FlatList
                                             data={data.dataset[1]}
+                                            scrollEnabled={false}
                                             renderItem={({ item }) => (
                                                 <View style={{ marginTop: 20, gap: 2 }}>
                                                     <View style={{ height: 50, justifyContent: 'center', flexDirection: 'row', justifyContent: 'start', alignItems: 'center', gap: 5, marginLeft: 10 }}>
-                                                        <Image source={require('../assets/punto_rojo.png')} style={{ width: 15, height: 15 }}/>
+                                                        <Image source={require('../assets/punto_rojo.png')} style={{ width: 15, height: 15 }} />
                                                         <Text style={{ fontWeight: 'bold', fontSize: 17 }}>Faltas {item.tipo_falta.toLowerCase()}</Text>
                                                     </View>
                                                     <View
@@ -51,19 +52,32 @@ const Accordion = ({ titulo, icono, backgroundIcono, tipo, data, colorHeader }) 
                                                         }}
                                                     />
                                                     <FlatList
-                                                            data={data.dataset[0].filter((row)=>{if(row.tipo_falta==item.tipo_falta){return row}})}
-                                                            renderItem={({ item }) => (
-                                                                <CartaActividad
-                                                                    data={item}
-                                                                    tipoCard={tipo}
-                                                                />
-                                                            )}
-                                                            contentContainerStyle={styles.collapseBodyContainer}
-                                                        />
+                                                        data={data.dataset[0].filter((row) => { if (row.tipo_falta == item.tipo_falta) { return row } })}
+                                                        scrollEnabled={false}
+                                                        renderItem={({ item }) => (
+                                                            <CartaActividad
+                                                                data={item}
+                                                                tipoCard={tipo}
+                                                            />
+                                                        )}
+                                                        contentContainerStyle={styles.collapseBodyContainer}
+                                                    />
                                                 </View>
                                             )}
                                         />
-                                        : <Text style={styles.h5Text}>{data.mensaje}</Text>
+                                        : tipo == "Inasistencia" && data.dataset.length != undefined && data.dataset.length != 0 ?
+                                            <FlatList
+                                                data={data.dataset}
+                                                scrollEnabled={false}
+                                                style={{ marginTop: 20 }}
+                                                renderItem={({ item }) => (
+                                                    <CartaActividad
+                                                        data={item}
+                                                        tipoCard={tipo}
+                                                    />
+                                                )}
+                                            />
+                                            : <Text style={styles.h5Text}>{data.mensaje}</Text>
                                 }
                             </View>
                         </CollapseBody>
@@ -85,7 +99,7 @@ const Accordion = ({ titulo, icono, backgroundIcono, tipo, data, colorHeader }) 
                             </CollapseHeader>
                             <CollapseBody style={styles.collapseBody}>
                                 <View style={styles.collapseBodyContainer}>
-                                    <FlatList
+                                    {/* <FlatList
                                         showsVerticalScrollIndicator={false}
                                         data={data.dataset}
                                         renderItem={({ item }) => (
@@ -95,7 +109,7 @@ const Accordion = ({ titulo, icono, backgroundIcono, tipo, data, colorHeader }) 
                                             />
                                         )}
                                         contentContainerStyle={styles.collapseBodyContainer}
-                                    />
+                                    /> */}
                                 </View>
                             </CollapseBody>
                         </Collapse>
@@ -132,10 +146,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     iconContainer: {
-        borderRadius: 100,
+        borderRadius: 15,
         padding: 5,
         height: 40,
         width: 40,
+        overflow: 'hidden'
     },
     headerContentImage: {
         padding: 5,
@@ -161,7 +176,7 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         gap: 5,
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     textoNota: {
         marginRight: 20,
