@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View, TextInput, ActivityIndicator } from 'reac
 import Uniforme from '../componentes/uniforme';
 import BackArrow from '../componentes/flecha_regreso';
 import { useNavigation } from '@react-navigation/native';
-import { fetchData } from '../utilidades/componentes'; // Ajusta la ruta según tu estructura de archivos
+import { fetchData } from '../utilidades/componentes';
 
 const Catalogo = () => {
     const navigation = useNavigation();
@@ -15,7 +15,7 @@ const Catalogo = () => {
         const loadUniformes = async () => {
             try {
                 const response = await fetchData(
-                    'services/public/uniformes.php', // Ajusta el nombre del archivo según tu API
+                    'services/public/uniformes.php',
                     'readAllNombreImagen' // Acción para obtener todos los uniformes
                 );
 
@@ -62,7 +62,7 @@ const Catalogo = () => {
                     <Uniforme
                         key={index}
                         nombre={uniforme.nombre_uniforme}
-                        imagenUri={uniforme.foto} // Asegúrate de que esto coincida con tu estructura de datos
+                        imagenUri={uniforme.foto}
                     />
                 ))}
             </ScrollView>
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
-        alignItems: 'center', // Cambiado de 'flex-end' a 'center' para centrar la flecha y la barra de búsqueda
+        alignItems: 'center',
         padding: 10,
         marginTop: 30,
     },
