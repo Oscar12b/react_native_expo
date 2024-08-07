@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { AlertNotificationRoot } from 'react-native-alert-notification';
 
-
+import WelcomeScreen from './pantallas/bienvenido';
 import Login from './pantallas/login';
 import TabNavigator from './navegacion/tab_navigator';
 import PantallaInicio from './pantallas/inicio';
@@ -19,7 +19,8 @@ function App() {
   return (
     <AlertNotificationRoot>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Welcome" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Main" component={TabNavigator} />
           <Stack.Screen name="Inicio" component={PantallaInicio} />
