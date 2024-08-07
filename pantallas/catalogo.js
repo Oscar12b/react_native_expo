@@ -1,29 +1,50 @@
-// Catalogo.js
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, View, TextInput } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { ScrollView, StyleSheet, View, TextInput, ActivityIndicator } from 'react-native';
 import Uniforme from '../componentes/uniforme';
-import BackArrow from '../componentes/flecha_regreso'; // Asegúrate de ajustar la ruta
+import BackArrow from '../componentes/flecha_regreso';
 import { useNavigation } from '@react-navigation/native';
+import { fetchData } from '../utilidades/componentes'; // Ajusta la ruta según tu estructura de archivos
 
 const Catalogo = () => {
     const navigation = useNavigation();
     const [searchQuery, setSearchQuery] = useState('');
+    const [uniformes, setUniformes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    const uniformes = [
-        { nombre: "Camisa mujer", imagenUri: "https://cdn-icons-png.flaticon.com/512/1685/1685558.png" },
-        { nombre: "Camisa hombre", imagenUri: "https://cdn-icons-png.flaticon.com/512/1685/1685558.png" },
-        { nombre: "Falda mujer", imagenUri: "https://cdn-icons-png.flaticon.com/512/1685/1685558.png" },
-        { nombre: "Pantalón niño", imagenUri: "https://cdn-icons-png.flaticon.com/512/1685/1685558.png" },
-        // Puedes agregar más uniformes aquí
-    ];
+    useEffect(() => {
+        const loadUniformes = async () => {
+            try {
+                const response = await fetchData(
+                    'services/public/uniformes.php', // Ajusta el nombre del archivo según tu API
+                    'readAllNombreImagen' // Acción para obtener todos los uniformes
+                );
+
+                if (response && response.status === 1) {
+                    setUniformes(response.dataset);
+                } else {
+                    console.error('Error al obtener uniformes:', response.exception);
+                }
+            } catch (error) {
+                console.error('Error al cargar uniformes:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadUniformes();
+    }, []);
 
     const filteredUniformes = uniformes.filter(uniforme =>
-        uniforme.nombre.toLowerCase().includes(searchQuery.toLowerCase())
+        uniforme.nombre_uniforme.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const handleBackPress = () => {
         navigation.navigate('Inicio');
     };
+
+    if (loading) {
+        return <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />;
+    }
 
     return (
         <View style={styles.container}>
@@ -40,8 +61,8 @@ const Catalogo = () => {
                 {filteredUniformes.map((uniforme, index) => (
                     <Uniforme
                         key={index}
-                        nombre={uniforme.nombre}
-                        imagenUri={uniforme.imagenUri}
+                        nombre={uniforme.nombre_uniforme}
+                        imagenUri={uniforme.foto} // Asegúrate de que esto coincida con tu estructura de datos
                     />
                 ))}
             </ScrollView>
@@ -56,18 +77,24 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
-        alignItems: 'flex-end', // Alinea los elementos en la parte inferior del contenedor
+        alignItems: 'center', // Cambiado de 'flex-end' a 'center' para centrar la flecha y la barra de búsqueda
         padding: 10,
-        marginTop: 30, // Espacio entre la barra de búsqueda y la parte superior
+        marginTop: 30,
     },
     searchBar: {
-        flex: 1, // Esto hace que la barra de búsqueda ocupe todo el espacio disponible
+        flex: 1,
         height: 45,
         borderColor: 'gray',
         borderWidth: 1.5,
         borderRadius: 10,
         paddingHorizontal: 10,
-        marginLeft: 10, // Espacio entre la flecha y la barra de búsqueda
+        marginLeft: 10,
+    },
+    loader: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#FFF',
     },
 });
 
