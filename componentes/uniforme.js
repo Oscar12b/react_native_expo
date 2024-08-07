@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
+import { SERVER_URL } from '../utilidades/constantes';
 
 const Uniforme = ({ nombre, imagenUri }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{nombre}</Text>
-            <Image source={{ uri: imagenUri }} style={styles.image} />
+            <Image source={{ uri: `${SERVER_URL}img/uniformes/${imagenUri}` }} style={styles.image} />
         </View>
     );
 };
