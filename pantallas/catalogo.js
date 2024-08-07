@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, TextInput, ActivityIndicator } from 'react-native';
+import { ScrollView, StyleSheet, View, TextInput, ActivityIndicator,TouchableOpacity } from 'react-native';
 import Uniforme from '../componentes/uniforme';
 import BackArrow from '../componentes/flecha_regreso';
 import { useNavigation } from '@react-navigation/native';
@@ -42,6 +42,10 @@ const Catalogo = () => {
         navigation.navigate('Inicio');
     };
 
+    const handleUniformePress = () => {
+        navigation.navigate('Detalle');
+    };
+
     if (loading) {
         return <ActivityIndicator size="large" color="#0000ff" style={styles.loader} />;
     }
@@ -59,11 +63,12 @@ const Catalogo = () => {
             </View>
             <ScrollView>
                 {filteredUniformes.map((uniforme, index) => (
+                    <TouchableOpacity key={uniforme.id_uniforme} onPress={() => handleUniformePress(uniforme.id_uniforme)}>
                     <Uniforme
-                        key={index}
                         nombre={uniforme.nombre_uniforme}
                         imagenUri={uniforme.foto}
                     />
+                </TouchableOpacity>
                 ))}
             </ScrollView>
         </View>
