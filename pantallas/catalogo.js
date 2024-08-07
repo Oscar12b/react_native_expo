@@ -1,41 +1,56 @@
-// Se importan las librerias y hooks necesarios
-import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
-
-// Se importa el componente Uniforme
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, View, TextInput } from 'react-native';
 import Uniforme from '../componentes/uniforme';
 
-// Se crea el componente Catalogo
 const Catalogo = () => {
-    return (
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  const uniformes = [
+    { nombre: "Camisa hombre", imagenUri: "https://example.com/camisa_hombre.jpg" },
+    { nombre: "Falda mujer", imagenUri: "https://example.com/falda_mujer.jpg" },
+    { nombre: "Pantalón niño", imagenUri: "https://example.com/pantalon_nino.jpg" },
+    // Puedes agregar más uniformes aquí
+  ];
 
-        // Se crea el contenedor con el ScrollView
-        <ScrollView style={styles.container}>
-            <Uniforme
-                nombre="Camisa hombre"
-                imagenLocal={require('../assets/sueter.webp')}
-            />
-            <Uniforme
-                nombre="Falda mujer"
-                imagenLocal={require('../assets/sueter.webp')}
-            />
-            <Uniforme
-                nombre="Pantalón niño"
-                imagenLocal={require('../assets/sueter.webp')}
-            />
-        </ScrollView>
-    );
+  const filteredUniformes = uniformes.filter(uniforme =>
+    uniforme.nombre.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return (
+    <View style={styles.container}>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Buscar uniformes..."
+        value={searchQuery}
+        onChangeText={text => setSearchQuery(text)}
+      />
+      <ScrollView>
+        {filteredUniformes.map((uniforme, index) => (
+          <Uniforme
+            key={index}
+            nombre={uniforme.nombre}
+            imagenUri={uniforme.imagenUri}
+          />
+        ))}
+      </ScrollView>
+    </View>
+  );
 };
 
-// Se asignan los estilos con StyleSheet
 const styles = StyleSheet.create({
-
-    // Se le asignan los estilos al contenedor
-    container: {
-        flex: 1,
-        backgroundColor: '#FFF',
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#FFF',
+  },
+  searchBar: {
+    height: 45,
+    borderColor: 'gray',
+    borderWidth: 1.5,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    margin: 10,
+    marginTop: 40,
+  },
 });
 
-// Se exporta el componente
 export default Catalogo;
