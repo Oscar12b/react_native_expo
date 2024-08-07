@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import { useFocusEffect } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNavigation } from '@react-navigation/native';
 import { ALERT_TYPE, Dialog, Toast } from 'react-native-alert-notification';
