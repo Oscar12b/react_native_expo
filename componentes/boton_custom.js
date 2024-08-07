@@ -57,7 +57,7 @@ const BotonConCarga = ({ filename, action, form = null, colorId = 1, onFetchComp
             case 1:
                 return '#000000'; // Negro
             case 2:
-                return '#0000FF'; // Azul
+                return '#E34646'; // ROJO
             case 3:
                 return '#800080'; // Morado
             default:
