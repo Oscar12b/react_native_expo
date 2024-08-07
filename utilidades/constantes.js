@@ -12,7 +12,7 @@ export const SERVER_URL = 'http://192.168.1.3/API_expo_rossaAgazzis/';
 
 export const TRIMESTRES_API = '';
 export const ESTUDIANTES_API = 'services/public/estudiantes.php';
-export const NOTAS_API = '';
+export const NOTAS_API = 'services/public/notas.php';
 
 
 

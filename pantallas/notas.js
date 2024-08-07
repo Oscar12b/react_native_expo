@@ -1,46 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import Accordion from '../componentes/accordion';
+import AccordionNota from '../componentes/according_materia';
 import SelectDropdown from '../componentes/select';
+import { NOTAS_API } from '../utilidades/constantes';
+import { controlAcceso } from '../utilidades/servicios';
+import { fetchData } from '../utilidades/componentes'; // Asegúrate de importar correctamente la función fetchData
+import { ALERT_TYPE, Dialog, Toast } from 'react-native-alert-notification';
 
-
-const Notas = () => {
-
+const Notas = ({ navigation }) => { // Asegúrate de pasar navigation como prop si es necesario
     const [valorSelect, setValorSelect] = useState(null);
+    const [datosAcordeones, setDatosAcordeones] = useState([]);
 
-    const handleValorSelect = (value) => {
-        setValorSelect(value);
-        console.log("valor cambiado", value);
-    };
+    useEffect(() => {
+        const checkAccess = async () => {
+            await controlAcceso(navigation);
+        };
 
-    const cartasData = [
-        { titulo: "Maqueta ecosistema (35%)", descripcion: "Identifica los diferentes componentes del ecosistema y su importancia.", nota: "9.6" },
-        { titulo: "Proyecto matemáticas (40%)", descripcion: "Realiza un proyecto sobre la teoría de números.", nota: "9.8" },
-        { titulo: "Informe biología (25%)", descripcion: "Escribe un informe sobre la fotosíntesis.", nota: "9.7" },
-    ];
+        checkAccess();
+        return () => { };
+    }, [navigation]);
+
+    useEffect(() => {
+        async function fetchDataNotas() {
+            console.log(valorSelect);
+            if (valorSelect != null) {
+                const FORM = new FormData();
+                FORM.append('idTrimestre', valorSelect);
+                const RESPONSE = await fetchData(NOTAS_API, 'readMateriasPromedio', FORM);
+                console.log(RESPONSE);
+                if (RESPONSE.status) {
+                    Toast.show({
+                        type: ALERT_TYPE.SUCCESS,
+                        title: 'Datos obtenidos',
+                        textBody: 'Datos obtenidos correctamente',
+                    });
+                    console.log(RESPONSE.dataset);
+                    setDatosAcordeones(RESPONSE.dataset || []); // Asegúrate de que datosAcordeones sea siempre un array
+                } else {
+                    Dialog.show({
+                        type: ALERT_TYPE.DANGER,
+                        title: 'Error',
+                        textBody: RESPONSE.error || 'No se pudo conectar al servidor',
+                        button: 'Aceptar',
+                    });
+                    setDatosAcordeones([]); // Asegúrate de que datosAcordeones sea siempre un array
+
+                }
+            }
+        }
+        fetchDataNotas();
+    }, [valorSelect]);
 
     return (
         <View style={styles.container}>
-
             <View style={styles.mainContainer}>
                 <SelectDropdown
-                    //es casi lo mismo que un fetch data pero con un select
-                    filename="services/public/trimestres.php" //nombre del archivo de la api de php pero con importe ej
-                    action="readALL" //accion de la api de php
-                    form={{ key: 'value' }} // Pasa el objeto de formulario si es necesario
-                    onValueChange={handleValorSelect} // Pasar la función callback
+                    // Es casi lo mismo que un fetch data pero con un select
+                    filename="services/public/trimestre.php" // Nombre del archivo de la API de PHP
+                    action="readAll" // Acción de la API de PHP
+                    valor={valorSelect}
+                    setValor={setValorSelect}
                 />
                 <ScrollView contentContainerStyle={{ rowGap: 15, padding: 13 }}>
-                    <Accordion
-                        tipo={"Nota"}
-                        colorHeader={"#B2FFB0"}
-                        data={{ nombreMateria: "Matemáticas", nota: "9.6", colorNota: '#88ceeb', dataset: cartasData }}
-                    />
-                    <Accordion
-                        tipo={"Nota"}
-                        colorHeader={"#D1EDF5"}
-                        data={{ nombreMateria: "Lenguaje", nota: "9.8", colorNota: '#88ceeb', dataset: cartasData }}
-                    />
+                    {datosAcordeones.map(({ id_profesor_materia, nombre_materia, promedio_final }) => (
+                        <AccordionNota
+                            key={id_profesor_materia}
+                            id={id_profesor_materia}
+                            title={nombre_materia}
+                            promedio_final={promedio_final}
+                            colorHeader={"#D1EDF5"}
+                        />
+                    ))}
                 </ScrollView>
             </View>
         </View>
