@@ -7,7 +7,7 @@ const CartaActividad = ({ tipoCard, data }) => {
       {tipoCard == "Nota" ?
         <View style={styles.container}>
           <View style={styles.assignmentContainer}>
-            <Text style={styles.assignmentTitle}>{data['titulo']}</Text>
+            <Text style={styles.assignmentTitle}>{data['titulo']} {data['porcentaje']}%</Text>
             <Text style={styles.assignmentDescription}>
               {data['descripcion']}
             </Text>
