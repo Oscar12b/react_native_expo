@@ -3,12 +3,28 @@ import { StyleSheet, Text, View, FlatList } from 'react-native';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
+import NotaCard from './carta_notas'
+
 import { NOTAS_API } from '../utilidades/constantes';
 import { fetchData } from '../utilidades/componentes';
 
 const AccordionNota = ({ id, title, promedio_final, colorHeader }) => {
 
     const [data, setData] = useState([]);
+    const [colorBage, setColorBage] = useState('#ffffff');
+
+    useEffect(() => {
+        if (promedio_final >= 7) {
+            setColorBage('#DF4343');
+        }
+        else if (promedio_final >= 4) {
+            setColorBage('#FFC93F');
+        }
+        else {
+            setColorBage('#DF4343');
+        }
+    }, []);
+
 
     useEffect(() => {
         const fetchDataNotas = async () => {
@@ -25,12 +41,12 @@ const AccordionNota = ({ id, title, promedio_final, colorHeader }) => {
     return (
         <View style={styles.container}>
             <Collapse touchableOpacityProps={{ activeOpacity: 1 }}>
-                <CollapseHeader style={[{ backgroundColor: colorHeader || "#f0f8ff" }, styles.collapseHeader]}>
+                <CollapseHeader style={[{ backgroundColor: 'white' }, styles.collapseHeader]}>
                     <View style={styles.headerCollapseContainer}>
                         <View style={styles.titleContainer}>
-                            <Text style={styles.titleText}>{title}</Text>
+                            <Text style={[styles.titleText]}>{title}</Text>
                             <View style={styles.badgeContainer}>
-                                <View style={[styles.badge, { backgroundColor: '#e0f7fa' }]}>
+                                <View style={[styles.badge, { borderColor: colorBage }]}>
                                     <Text style={styles.badgeText}>{promedio_final}</Text>
                                 </View>
                             </View>
@@ -44,22 +60,17 @@ const AccordionNota = ({ id, title, promedio_final, colorHeader }) => {
                             data={data}
                             keyExtractor={(item) => item.id_asignacion.toString()}
                             renderItem={({ item }) => (
-                                <View style={styles.cardContainer}>
-                                    <Text style={styles.cardTitle}>{item.nombre_actividad}</Text>
-                                    <Text style={styles.cardSubtitle}>Descripción:</Text>
-                                    <Text style={styles.cardText}>{item.descripcion}</Text>
-                                    <Text style={styles.cardSubtitle}>Porcentaje:</Text>
-                                    <Text style={styles.cardText}>{item.porcentaje}%</Text>
-                                    <Text style={styles.cardSubtitle}>Fechas:</Text>
-                                    <Text style={styles.cardText}>Inicio: {item.fecha_inicio}</Text>
-                                    <Text style={styles.cardText}>Finalización: {item.fecha_finalizacion}</Text>
-                                    <Text style={styles.cardSubtitle}>Estado:</Text>
-                                    <Text style={[styles.cardText, { color: item.estado_asignacion === 'Completado' ? 'green' : 'red' }]}>{item.estado_asignacion}</Text>
-                                    <Text style={styles.cardSubtitle}>Tipo de Asignación:</Text>
-                                    <Text style={styles.cardText}>{item.nombre_tipo_asignacion}</Text>
-                                    <Text style={styles.cardSubtitle}>Nota:</Text>
-                                    <Text style={[styles.cardText, { fontWeight: 'bold' }]}>{item.nota}</Text>
-                                </View>
+                                <NotaCard
+                                    id_asignacion={item.id_asignacion}
+                                    nombre_actividad={item.nombre_actividad}
+                                    descripcion={item.descripcion}
+                                    porcentaje={item.porcentaje}
+                                    estado_asignacion={item.estado_asignacion}
+                                    fecha_inicio={item.fecha_inicio}
+                                    fecha_finalizacion={item.fecha_finalizacion}
+                                    nombre_tipo_asignacion={item.nombre_tipo_asignacion}
+                                    nota={item.nota}
+                                />
                             )}
                         />
                     </View>
@@ -74,7 +85,7 @@ export default AccordionNota;
 const styles = StyleSheet.create({
     container: {
         marginVertical: 8,
-        marginHorizontal: 10,
+        marginHorizontal: 0,
     },
     collapseHeader: {
         borderRadius: 15,
@@ -107,14 +118,12 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         paddingHorizontal: 12,
         borderRadius: 20,
-        borderWidth: 1,
-        borderColor: '#b2dfdb',
+        borderWidth: 4,
         marginLeft: 10,
     },
     badgeText: {
         fontWeight: '600',
         fontSize: 20,
-        color: '#00796b',
     },
     collapseBody: {
         backgroundColor: "#fff",
@@ -127,6 +136,7 @@ const styles = StyleSheet.create({
     },
     collapseBodyContainer: {
         flex: 1,
+        paddingTop: 40,
     },
     cardContainer: {
         marginTop: 30,

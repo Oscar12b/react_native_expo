@@ -1,6 +1,5 @@
-// NotaCard.js
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 const NotaCard = ({
     id_asignacion,
@@ -13,77 +12,121 @@ const NotaCard = ({
     nombre_tipo_asignacion,
     nota,
 }) => {
+
+    const [backgroundColorNota, setBackgroundColor] = useState('#fff');
+
+    useEffect(() => {
+        if (nota >= 7) {
+            setBackgroundColor('#57D737');
+        } else if (nota >= 5) {
+            setBackgroundColor('#FFC93F');
+        } else {
+            setBackgroundColor('#D75A5A');
+        }
+    }, []);
+
     return (
         <View style={styles.card}>
-            <Text style={styles.title}>{nombre_actividad}</Text>
-            <Text style={styles.description}>{descripcion}</Text>
-            <View style={styles.row}>
-                <Text style={styles.label}>Porcentaje:</Text>
-                <Text style={styles.value}>{porcentaje}%</Text>
+            <View style={styles.content}>
+                <Text style={styles.nombreActividad}>{`${nombre_actividad} (${porcentaje}%)`}</Text>
+                <Text style={styles.descripcion}>{descripcion}</Text>
+                <View style={styles.datesContainer}>
+                    <View style={styles.dateBox}>
+                        <Text style={styles.dateText}>{fecha_inicio}</Text>
+                    </View>
+                    <View style={styles.dateBox}>
+                        <Text style={styles.dateText}>{fecha_finalizacion}</Text>
+                    </View>
+                </View>
+                <View style={[styles.estadoBox, estado_asignacion === 'Activo' ? styles.estadoActivo : styles.estadoInactivo]}>
+                    <Text style={styles.estadoText}>{estado_asignacion}</Text>
+                </View>
             </View>
-            <View style={styles.row}>
-                <Text style={styles.label}>Fecha Inicio:</Text>
-                <Text style={styles.value}>{fecha_inicio}</Text>
+            <View style={[styles.notaContainer, { backgroundColor: backgroundColorNota }]}>
+                <Text style={styles.nombreTipoAsignacion}>{nombre_tipo_asignacion}</Text>
+                <Text style={styles.nota}>{nota}</Text>
             </View>
-            <View style={styles.row}>
-                <Text style={styles.label}>Fecha Finalización:</Text>
-                <Text style={styles.value}>{fecha_finalizacion}</Text>
-            </View>
-            <View style={styles.row}>
-                <Text style={styles.label}>Estado:</Text>
-                <Text style={[styles.value, { color: estado_asignacion === 'completado' ? 'green' : 'red' }]}>
-                    {estado_asignacion}
-                </Text>
-            </View>
-            <View style={styles.row}>
-                <Text style={styles.label}>Tipo de Asignación:</Text>
-                <Text style={styles.value}>{nombre_tipo_asignacion}</Text>
-            </View>
-            <View style={styles.row}>
-                <Text style={styles.label}>Nota:</Text>
-                <Text style={styles.value}>{nota}</Text>
-            </View>
-        </View>
+        </View >
     );
 };
 
-export default NotaCard;
-
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#f9f9f9',
-        borderRadius: 10,
-        padding: 15,
-        marginVertical: 5,
-        elevation: 3,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 1 },
-        shadowOpacity: 0.3,
-        shadowRadius: 2,
-    },
-    title: {
-        fontSize: 18,
-        fontWeight: '700',
-        marginBottom: 10,
-        color: '#333',
-    },
-    description: {
-        fontSize: 16,
-        color: '#555',
-        marginBottom: 10,
-    },
-    row: {
+        marginTop: 10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+
+        elevation: 10,
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        borderRadius: 10,
+        overflow: 'hidden',
+        backgroundColor: '#fff',
+        marginVertical: 10,
+    },
+    content: {
+        flex: 3,
+        padding: 15,
+    },
+    nombreActividad: {
+        fontSize: 16,
+        fontWeight: 'bold',
         marginBottom: 5,
     },
-    label: {
+    descripcion: {
         fontSize: 14,
-        fontWeight: '600',
-        color: '#666',
+        marginBottom: 15,
     },
-    value: {
+    datesContainer: {
+        flexDirection: 'row',
+        gap: 10,
+        justifyContent: 'space-between',
+        marginBottom: 15,
+    },
+    dateBox: {
+        backgroundColor: '#E0E0E0',
+        borderRadius: 10,
+        padding: 10,
+        flex: 1,
+        alignItems: 'center',
+    },
+    dateText: {
         fontSize: 14,
-        color: '#333',
+    },
+    estadoBox: {
+        borderRadius: 10,
+        padding: 10,
+        alignItems: 'center',
+    },
+    estadoActivo: {
+        backgroundColor: '#89FF6B',
+    },
+    estadoInactivo: {
+        backgroundColor: '#DF4343',
+    },
+    estadoText: {
+        fontSize: 14,
+        color: 'white',
+        fontWeight: 'bold',
+    },
+    notaContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    nombreTipoAsignacion: {
+        fontSize: 12,
+        color: '#000',
+        marginBottom: 5,
+    },
+    nota: {
+        fontSize: 32,
+        fontWeight: 'bold',
     },
 });
+
+export default NotaCard;

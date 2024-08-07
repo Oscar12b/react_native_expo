@@ -82,7 +82,7 @@ export default Notas;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#F1F1F7',
     },
     mainContainer: {
         flex: 1,

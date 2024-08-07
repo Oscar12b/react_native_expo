@@ -39,7 +39,7 @@ const SelectDropdown = ({ filename, action, form = null, busqueda = true, onValu
                         // Se almacena la fecha de finalización en la variable.
                         fecha_fin = new Date(row.fecha_fin);
                         // Si la fecha actual se encuentra en el rango del trimestre se asigna el valor del dropdown.
-                        if(fecha_inicio.getTime()<=fecha_actual.getTime() && fecha_actual.getTime()<=fecha_fin.getTime()){
+                        if (fecha_inicio.getTime() <= fecha_actual.getTime() && fecha_actual.getTime() <= fecha_fin.getTime()) {
                             // Se asigna el valor del dropdown.
                             setValor(row.id_trimestre);
                         }
@@ -99,11 +99,12 @@ const SelectDropdown = ({ filename, action, form = null, busqueda = true, onValu
 const styles = StyleSheet.create({
     container: {
         margin: 16,
+        backgroundColor: 'white',
     },
     dropdown: {
         height: 50,
         borderColor: 'gray',
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderRadius: 8,
         paddingHorizontal: 8,
     },

@@ -1,6 +1,6 @@
 // COSTANTE DEL ENDPOINT DEL SERVIDOR
 
-export const SERVER_URL = 'http://192.168.137.72/API_expo_rossaAgazzis/';
+export const SERVER_URL = 'http://192.168.1.233/API_expo_rossaAgazzis/';
 
 
 /**
