@@ -10,6 +10,7 @@ import Login from './pantallas/login';
 import TabNavigator from './navegacion/tab_navigator';
 import PantallaInicio from './pantallas/inicio';
 import Catalogo from './pantallas/catalogo';
+import Detalle from './pantallas/detalle_uniforme';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ function App() {
           <Stack.Screen name="Main" component={TabNavigator} />
           <Stack.Screen name="Inicio" component={PantallaInicio} />
           <Stack.Screen name="Catalogo" component={Catalogo} />
+          <Stack.Screen name="Detalle" component={Detalle} />
         </Stack.Navigator>
       </NavigationContainer>
     </AlertNotificationRoot>

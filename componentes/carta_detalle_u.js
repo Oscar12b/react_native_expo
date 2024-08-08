@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { View, StyleSheet, Image } from 'react-native';
-import { Card, Text, Button } from 'react-native-paper';
+import { Card, Text } from 'react-native-paper';
 
-const DetalleCard = ({ nombre, navigation, imagenLocal, cuerpo, imagenUri, price }) => {
+const DetalleCard = ({ nombre, imagenLocal, cuerpo, imagenUri, price }) => {
     return (
     <View style={styles.container}>
       <Card style={styles.card}>
@@ -17,9 +17,6 @@ const DetalleCard = ({ nombre, navigation, imagenLocal, cuerpo, imagenUri, price
             )}
           <Text style={styles.precio}>Precio: ${price.toFixed(2)}</Text>
         </Card.Content>
-        <Card.Actions>
-          <Button onPress={() => navigation.goBack()} style={styles.boton} labelStyle={styles.etiquetaBoton}>Volver</Button>
-        </Card.Actions>
       </Card>
     </View>
   );
@@ -45,34 +42,26 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 20,
     backgroundColor: '#D1EDF5',
-},
-precio: {
-    fontWeight: 'bold',
-    fontSize: 17
-},
-
-cuerpo: {
-    fontSize: 16,
-    textAlign: 'justify'
-},
-
-nombre: {
-    textAlign: 'center',  
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 20,
-
-},
-boton: {
-    backgroundColor: '#73B0E2', 
-    borderRadius: 10, 
-},
-
-etiquetaBoton: {
-    color: 'white',  
+  },
+  precio: {
+      fontWeight: 'bold',
+      fontSize: 17
   },
 
-  
+  cuerpo: {
+      fontSize: 16,
+      textAlign: 'justify'
+  },
+
+  nombre: {
+      textAlign: 'center',  
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 20,
+
+  }
+
+    
 
 });
 

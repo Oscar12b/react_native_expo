@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Inicio from '../pantallas/inicio';
 import Conducta from '../pantallas/conducta';
 import Perfil from '../pantallas/perfil';
-import Detalle from '../pantallas/detalle_uniforme';
 import Notas from '../pantallas/notas';
+import Detalle from '../pantallas/detalle_uniforme';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,9 +42,6 @@ function TabNavigator() {
       <Tab.Screen name="Notas" component={Notas} />
       <Tab.Screen name="Conducta" component={Conducta} />
       <Tab.Screen name="Perfil" component={Perfil} />
-      <Tab.Navigator>
-        
-      </Tab.Navigator>
     </Tab.Navigator>
   );
 }
