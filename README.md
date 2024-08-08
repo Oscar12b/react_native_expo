@@ -8,14 +8,14 @@ Dentro de la problemática actual, el colegio se enfrenta a diversas amenazas qu
 * Pablo Ismael Sánchez Hernández
 * Christopher Alessandro Juárez Ponce.
 # Dependencias:
-"@react-navigation/bottom-tabs": "^6.5.20",
-"@react-navigation/native": "^6.1.17",
-"@react-navigation/stack": "^6.3.29",
-"expo-status-bar": "~1.12.1",
-"react-native": "0.74.2",
-"react-native-gesture-handler": "^2.17.1",
-"react-native-safe-area-context": "^4.10.1",
-"react-native-screens": "^3.31.1",
-"react-native-vector-icons": "^10.1.0"
-"react-native-element-dropdown":"^2.12.1"
-"@react-native-async-storage/async-storage": "^1.24.0"
+* "@react-navigation/bottom-tabs": "^6.5.20",
+* "@react-navigation/native": "^6.1.17",
+* "@react-navigation/stack": "^6.3.29",
+* "expo-status-bar": "~1.12.1",
+* "react-native": "0.74.2",
+* "react-native-gesture-handler": "^2.17.1",
+* "react-native-safe-area-context": "^4.10.1",
+* "react-native-screens": "^3.31.1",
+* "react-native-vector-icons": "^10.1.0"
+* "react-native-element-dropdown":"^2.12.1"
+* "@react-native-async-storage/async-storage": "^1.24.0"
