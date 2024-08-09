@@ -4,7 +4,7 @@
     "slug": "react_native_expo",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo_fondo_azul_colegio.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splashh.png",

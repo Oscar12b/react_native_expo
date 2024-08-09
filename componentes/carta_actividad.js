@@ -155,18 +155,29 @@ const CartaActividad = ({ tipoCard, data }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 1,
-    borderColor: '#DDD',
-    borderRadius: 10,
+    justifyContent: 'center',
     overflow: 'hidden',
+    paddingVertical: 15,
+    justifyContent: 'center',
   },
   assignmentContainer: {
-    backgroundColor: '#98C0F6',
+    borderWidth: 1,
+    borderColor: '#DDD',
+    marginHorizontal: 10,
+    borderRadius: 10,
+    backgroundColor: 'white',
+    width: Dimensions.get('window').width - 35,
     padding: 15,
     borderTopWidth: 1,
     borderColor: '#DDD',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    elevation: 5,
+
   },
   assignmentTitle: {
     fontSize: 18,
