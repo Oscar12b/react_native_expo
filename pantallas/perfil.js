@@ -57,6 +57,7 @@ const Perfil = () => {
 
             try {
 
+                //se setean los datos
                 const DATA = response.dataset;
                 setAliasEstudiante(DATA.alias_estudiante);
                 setNombreCompleto(DATA.nombre_completo);

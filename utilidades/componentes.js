@@ -64,9 +64,9 @@ export const fetchData = async (filename, action, form = null, dataprovisional =
             // Add the action parameter to the URL
             const URL_WITH_ACTION = `${PATH}?action=${action}`;
 
-            console.warn(URL_WITH_ACTION);
+            //console.warn(URL_WITH_ACTION);
             // Obtener el identificador de sesión y agregarlo a los encabezados
-            console.warn(OPTIONS.body);
+            //console.warn(OPTIONS.body);
 
             // Send the request and get the RESPONSE
             const RESPONSE = await fetch(URL_WITH_ACTION, OPTIONS);

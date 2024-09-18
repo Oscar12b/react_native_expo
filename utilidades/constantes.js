@@ -1,6 +1,6 @@
 // COSTANTE DEL ENDPOINT DEL SERVIDOR
 
-export const SERVER_URL = 'http://192.168.137.72/API_expo_rossaAgazzis/';
+export const SERVER_URL = 'http://192.168.88.116/API_expo_rossaAgazzis/';
 
 
 /**
@@ -13,6 +13,7 @@ export const SERVER_URL = 'http://192.168.137.72/API_expo_rossaAgazzis/';
 export const TRIMESTRES_API = '';
 export const ESTUDIANTES_API = 'services/public/estudiantes.php';
 export const NOTAS_API = 'services/public/notas.php';
+export const CATALOGO_API = 'services/public/uniformes.php';
 
 
 

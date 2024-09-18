@@ -9,8 +9,10 @@ export const controlAcceso = async (navigation) => {
     if (RESPONSE.status) {
         if (RESPONSE.session) {
             navigation.navigate('Main');
+            return RESPONSE;
         } else {
             navigation.navigate('Login');
+
         }
     } else {
         navigation.navigate('Login');

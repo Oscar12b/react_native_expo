@@ -1,17 +1,42 @@
 // Propósito: Pantalla de carga que se muestra al inicio de la aplicación
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import { controlAcceso } from '../utilidades/servicios';
+
+import { useFocusEffect } from '@react-navigation/native';
+
+
 const LoadingScreen = () => {
   const navigation = useNavigation();
+
+  //********************************************************************************************
+  // Control de acceso a login y main por medio de session
+  const checkAccess = async () => {
+    await controlAcceso(navigation);
+  };
+
+  useEffect(() => {
+    checkAccess(); //funcion para verificar el acceso
+
+    return () => {
+    };
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      checkAccess();
+    }, [])
+  );
+
 
   useEffect(() => {
     const loadData = async () => {
       try {
         // Simula una operación asíncrona, como una solicitud de red
         await new Promise(resolve => setTimeout(resolve, 3000)); // Espera 3 segundos
-        
+
         // Navega a la pantalla principal después de la carga
         navigation.navigate('Login'); // Esto hace que después del tiempos de espera de 3 segundos, se navegue a la pantalla de inicio de sesión
       } catch (error) {
@@ -52,7 +77,7 @@ const styles = StyleSheet.create({
   },
   overlay: {
     position: 'absolute',
-    bottom: 300,
+    bottom: 230,
     left: 0,
     right: 0,
     justifyContent: 'center',

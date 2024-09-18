@@ -31,9 +31,9 @@ const LoginScreen = () => {
     //********************************************************************************************
     // Estados para los campos de usuario y contraseña
     const [usuario, setUsuario] = useState('');
-    const [contraseña, setContraseña] = useState('');
+    const [contra, setContra] = useState('');
     const [errorUsuario, setErrorUsuario] = useState('');
-    const [errorContraseña, setErrorContraseña] = useState('');
+    const [errorContra, setErrorContra] = useState('');
 
     const FORM_DATA = new FormData();
     const navigation = useNavigation();
@@ -71,11 +71,11 @@ const LoginScreen = () => {
             });
 
             setErrorUsuario('Usuario incorrecto');
-            setErrorContraseña('Contraseña incorrecta');
+            setErrorContra('Contraseña incorrecta');
 
             setTimeout(() => {
                 setErrorUsuario('');
-                setErrorContraseña('');
+                setErrorContra('');
             }, 2000);
 
         } else {
@@ -94,6 +94,7 @@ const LoginScreen = () => {
     // Función que se ejecuta al presionar el botón de login
     const handledPressValidacion = () => {
 
+        //se verifica si hay un usuario
         if (!usuario) {
             setErrorUsuario('Debe ingresar un usuario');
             return false;
@@ -101,27 +102,30 @@ const LoginScreen = () => {
             setErrorUsuario('');
         }
 
-        if (!contraseña) {
-            setErrorContraseña('Debe ingresar una contraseña');
+        //se verifica si hay una contrasena
+        if (!contra) {
+            setErrorContra('Debe ingresar una contraseña');
             return false;
         } else {
-            setErrorContraseña('');
+            setErrorContra('');
         }
 
-        if (usuario && contraseña) {
+        //se verifica el ususrio
+        if (usuario && contra) {
+            //se verifica la longitud del usuario
             if (usuario.length < 8) {
                 setErrorUsuario('El usuario debe tener al menos 9 caracteres');
                 return
-            } else if (contraseña.length < 6) {
-                setErrorContraseña('La contraseña debe tener al menos 5 caracteres');
+            } else if (contra.length < 6) {//se verifica la lsongitud de la contrasena
+                setErrorContra('La contraseña debe tener al menos 5 caracteres');
                 return false;
             } else {
                 setErrorUsuario('');
-                setErrorContraseña('');
+                setErrorContra('');
 
                 // Se crea un objeto FormData para enviar los datos al servidor
                 FORM_DATA.append('alias_estudiante', usuario);
-                FORM_DATA.append('clave_estudiante', contraseña);
+                FORM_DATA.append('clave_estudiante', contra);
 
                 return true;
             }
@@ -146,7 +150,7 @@ const LoginScreen = () => {
                         <View style={styles.imageContainer}>
                             <Image source={require('../assets/logo_fondo_azul_colegio.png')} style={styles.logo} />
                         </View>
-                        <Text style={styles.title}>Inicio Sesión</Text>
+                        <Text style={styles.title}>Inicie sesión</Text>
                         <CustomInput
                             style={styles.title}
                             containerStyle={{ marginHorizontal: 10, marginBottom: 20 }}
@@ -159,9 +163,9 @@ const LoginScreen = () => {
                             style={styles.title}
                             containerStyle={{ marginHorizontal: 10, marginBottom: 20 }}
                             placeholder={'Contraseña'}
-                            onChangeText={setContraseña}
-                            error={errorContraseña}
-                            value={contraseña}
+                            onChangeText={setContra}
+                            error={errorContra}
+                            value={contra}
                             secureTextEntry
                         />
                         <BotonConCarga

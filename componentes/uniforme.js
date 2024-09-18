@@ -1,13 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { SERVER_URL } from '../utilidades/constantes';
 
-const Uniforme = ({ nombre, imagenUri }) => {
+import { useNavigation } from '@react-navigation/native';
+
+
+const Uniforme = ({ nombre, imagenUri, onPress, id }) => {
+
+    const navigation = useNavigation();
+
+    const handledDetalleUniforme = (idUniforme) => {
+        navigation.navigate('DetalleUniforme', { id: idUniforme });
+    };
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>{nombre}</Text>
-            <Image source={{ uri: `${SERVER_URL}img/uniformes/${imagenUri}` }} style={styles.image} />
-        </View>
+        <TouchableOpacity onPress={() => handledDetalleUniforme(id)}>
+            <View style={styles.container}>
+                <Text style={styles.text}>{nombre}</Text>
+                <Image source={{ uri: `${SERVER_URL}img/uniformes/${imagenUri}` }} style={styles.image} />
+            </View>
+        </TouchableOpacity>
     );
 };
 
