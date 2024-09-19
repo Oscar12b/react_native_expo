@@ -20,5 +20,6 @@ Dentro de la problemática actual, el colegio se enfrenta a diversas amenazas qu
 * "react-native-element-dropdown":"^2.12.1"
 * "@react-native-async-storage/async-storage": "^1.24.0"
 
-# LINKS DE DOCUMENTOS (Manuales del sistema).
+# Link de documentos (Manuales del sistema).
 * Link de drive para los manuales "https://drive.google.com/drive/folders/1f_VeO7mXDB_AnRNxCzAFEYAKGMVfxozu?usp=sharing"
+* Link de video tutoriales "https://drive.google.com/drive/folders/1TXCs4Y3JygsHM0iBFYs-khJ_aLxyT_Wt?usp=sharing"
