@@ -1,7 +1,8 @@
 // COSTANTE DEL ENDPOINT DEL SERVIDOR
 
-export const SERVER_URL = 'http://192.168.88.116/API_expo_rossaAgazzis/';
+export const SERVER_URL = 'https://apiexporosaagazzi-production.up.railway.app/';
 
+//export const SERVER_URL = 'http://localhost/sitio_privado_EXPO/';
 
 /**
  * NOTA: LAS CONSTANTES SE DEFINEN DE LA SIGUIENTE MANERA

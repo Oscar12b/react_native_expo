@@ -73,7 +73,7 @@ export const fetchData = async (filename, action, form = null, dataprovisional =
 
             const COOKIES = RESPONSE.headers.get('set-cookie');
             // console.log(await RESPONSE.text());
-            /// console.log(await RESPONSE.json());
+            //console.log(await RESPONSE.json());
 
 
             // Extraer el PHPSESSID de las COOKIES

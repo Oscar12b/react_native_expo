@@ -16,12 +16,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/logo_fondo_azul_colegio.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.oscardevpr.react_native_expo"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "44100b6c-1af8-4b19-8654-e7d47ed8e53a"
+      }
     }
   }
 }
