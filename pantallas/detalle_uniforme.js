@@ -3,19 +3,23 @@ import { View, Text, Image, StyleSheet, ScrollView, ActivityIndicator } from 're
 
 import { SERVER_URL } from '../utilidades/constantes';
 import { fetchData } from '../utilidades/componentes';
+import BackArrow from '../componentes/flecha_regreso';
 
+import { useNavigation } from '@react-navigation/native';
 import { CATALOGO_API } from '../utilidades/constantes';
 
 import { ALERT_TYPE, Dialog, Toast } from 'react-native-alert-notification';
 
 const DetalleUniforme = ({ route }) => {
 
+    // Declaración de constantes
+    const navigation = useNavigation();
     const { id } = route.params; // Obtener el id desde los parámetros
     const [uniforme, setUniforme] = useState(null);
 
     useEffect(() => {
         const fetchUniformeData = async () => { // Función para obtener los datos del uniforme
-            
+
             const FORM = new FormData();
             //FORM CONST new 
             FORM.append('idUniforme', id);
@@ -53,8 +57,15 @@ const DetalleUniforme = ({ route }) => {
         );
     }
 
+    // Función para regresar a la pantalla de catálogo
+    const handleBackPress = () => {
+        // Se regresa a la pantalla anterior.
+        navigation.goBack();
+    };
+
     return (
         <ScrollView style={styles.container}>
+            <BackArrow onPress={handleBackPress} />
             <Image source={{ uri: `${SERVER_URL}img/uniformes/${uniforme.foto}` }} style={styles.image} />
             <Text style={styles.title}>{uniforme.nombre_uniforme}</Text>
             <Text style={styles.description}>{uniforme.descripcion}</Text>
