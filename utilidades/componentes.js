@@ -1,3 +1,4 @@
+//estos son lo componentes que s utilizaran en la aplicacion
 import { SERVER_URL } from "./constantes";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
